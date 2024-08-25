@@ -1,0 +1,85 @@
+cmake_minimum_required(VERSION 3.25)
+
+project(imgui VERSION 1.0 LANGUAGES C CXX)
+
+set(all_headers
+    imconfig.h
+    imgui_internal.h
+    imgui.h
+    imstb_rectpack.h
+    imstb_textedit.h
+    imstb_truetype.h
+    backends/imgui_impl_opengl3.h
+    backends/imgui_impl_glfw.h
+    # backends/imgui_impl_glut.h
+    backends/imgui_impl_vulkan.h
+    backends/imgui_impl_win32.h
+
+# if(APPLE)
+#     backends/imgui_impl_metal.h
+#     backends/imgui_impl_metal.mm
+# endif()
+    # backends/imgui_impl_opengl2.h
+    # backends/imgui_impl_opengl3_loader.h
+
+    # backends/imgui_impl_allegro5.h
+    # backends/imgui_impl_android.h
+    # backends/imgui_impl_dx9.h
+    # backends/imgui_impl_dx10.h
+    # backends/imgui_impl_dx11.h
+    # backends/imgui_impl_dx12.h
+
+    # backends/imgui_impl_osx.h
+    # backends/imgui_impl_sdl2.h
+    # backends/imgui_impl_sdl3.h
+    # backends/imgui_impl_sdlrenderer2.h
+    # backends/imgui_impl_sdlrenderer3.h
+    # backends/imgui_impl_wgpu.h
+)
+
+set(
+    ALL_SRC
+    imconfig.h
+    imgui_internal.h
+    imgui.h
+    imstb_rectpack.h
+    imstb_textedit.h
+    imstb_truetype.h
+
+    imgui.cpp
+    imgui_demo.cpp
+    imgui_draw.cpp
+    imgui_tables.cpp
+    imgui_widgets.cpp
+
+    backends/imgui_impl_opengl3.cpp
+    backends/imgui_impl_glfw.cpp
+    # backends/imgui_impl_glut.cpp
+    backends/imgui_impl_vulkan.cpp
+    backends/imgui_impl_win32.cpp
+
+    # backends/imgui_impl_allegro5.cpp
+    # backends/imgui_impl_android.cpp
+    # backends/imgui_impl_dx9.cpp
+    # backends/imgui_impl_dx10.cpp
+    # backends/imgui_impl_dx11.cpp
+    # backends/imgui_impl_dx12.cpp
+
+    # backends/imgui_impl_osx.mm
+    # backends/imgui_impl_sdl2.cpp
+    # backends/imgui_impl_sdl3.cpp
+    # backends/imgui_impl_sdlrenderer2.cpp
+    # backends/imgui_impl_sdlrenderer3.cpp
+    # backends/imgui_impl_wgpu.cpp
+)
+
+find_package(glfw3 REQUIRED)
+find_package(Vulkan REQUIRED)
+
+add_library(${PROJECT_NAME} ${ALL_SRC})
+
+target_include_directories(${PROJECT_NAME} PUBLIC ./)
+
+target_link_libraries(${PROJECT_NAME} glfw Vulkan::Vulkan)
+
+install(TARGETS ${PROJECT_NAME})
