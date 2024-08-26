@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.25)
 
 project(imgui VERSION 1.0 LANGUAGES C CXX)
 
-set(all_headers
+set(
+    ALL_SRC
     imconfig.h
     imgui_internal.h
     imgui.h
@@ -15,7 +16,20 @@ set(all_headers
     backends/imgui_impl_vulkan.h
     backends/imgui_impl_win32.h
 
-# if(APPLE)
+
+    imgui.cpp
+    imgui_demo.cpp
+    imgui_draw.cpp
+    imgui_tables.cpp
+    imgui_widgets.cpp
+
+    backends/imgui_impl_opengl3.cpp
+    backends/imgui_impl_glfw.cpp
+    # backends/imgui_impl_glut.cpp
+    backends/imgui_impl_vulkan.cpp
+    backends/imgui_impl_win32.cpp
+
+    # if(APPLE)
 #     backends/imgui_impl_metal.h
 #     backends/imgui_impl_metal.mm
 # endif()
@@ -35,28 +49,6 @@ set(all_headers
     # backends/imgui_impl_sdlrenderer2.h
     # backends/imgui_impl_sdlrenderer3.h
     # backends/imgui_impl_wgpu.h
-)
-
-set(
-    ALL_SRC
-    imconfig.h
-    imgui_internal.h
-    imgui.h
-    imstb_rectpack.h
-    imstb_textedit.h
-    imstb_truetype.h
-
-    imgui.cpp
-    imgui_demo.cpp
-    imgui_draw.cpp
-    imgui_tables.cpp
-    imgui_widgets.cpp
-
-    backends/imgui_impl_opengl3.cpp
-    backends/imgui_impl_glfw.cpp
-    # backends/imgui_impl_glut.cpp
-    backends/imgui_impl_vulkan.cpp
-    backends/imgui_impl_win32.cpp
 
     # backends/imgui_impl_allegro5.cpp
     # backends/imgui_impl_android.cpp
