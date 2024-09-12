@@ -25,6 +25,7 @@ class ImguiDockingRecipe(ConanFile):
         self.tool_requires("cmake/3.27.1")
         self.requires("glfw/3.4", transitive_headers=True)
         self.requires("opengl/system", transitive_headers=True)
+        self.requires("vulkan-loader/1.3.290.0")
 
     def config_options(self):
         if self.settings.os == "Windows":
@@ -74,6 +75,6 @@ class ImguiDockingRecipe(ConanFile):
         self.cpp_info.libs = ["imgui"]
         self.cpp_info.includedirs = ['./']  # Ordered list of include paths
 
-    
 
-    
+
+

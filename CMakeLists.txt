@@ -27,9 +27,7 @@ set(
     backends/imgui_impl_glfw.cpp
     # backends/imgui_impl_glut.cpp
     backends/imgui_impl_vulkan.cpp
-    backends/imgui_impl_win32.cpp
-
-    # if(APPLE)
+    # backends/imgui_impl_win32.cpp
 #     backends/imgui_impl_metal.h
 #     backends/imgui_impl_metal.mm
 # endif()
@@ -65,13 +63,28 @@ set(
     # backends/imgui_impl_wgpu.cpp
 )
 
-find_package(glfw3 REQUIRED)
-find_package(Vulkan REQUIRED)
+# Adding sources that are dependent on OS.
+if(WIN32)
+    list(APPEND ALL_SRC backends/imgui_impl_win32.cpp)
+endif(WIN32)
 
+find_package(glfw3 REQUIRED)
+if(WIN32)
+find_package(Vulkan REQUIRED)
+endif(WIN32)
+
+if(LINUX)
+    find_package(VulkanLoader REQUIRED CONFIG)
+endif(LINUX)
 add_library(${PROJECT_NAME} ${ALL_SRC})
 
 target_include_directories(${PROJECT_NAME} PUBLIC ./)
 
+if(WIN32)
 target_link_libraries(${PROJECT_NAME} glfw Vulkan::Vulkan)
+endif(WIN32)
 
+if(LINUX)
+target_link_libraries(${PROJECT_NAME} glfw Vulkan::Loader)
+endif(LINUX)
 install(TARGETS ${PROJECT_NAME})
