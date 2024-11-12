@@ -72,7 +72,7 @@ class ImguiDockingRecipe(ConanFile):
 
     def package_info(self):
         self.cpp_info.set_property("cmake_target_name", "imguidocking::imguidocking")
-        self.cpp_info.libs = ["imgui"]
+        self.cpp_info.libs = ["imguidocking"]
         self.cpp_info.includedirs = ['./']  # Ordered list of include paths
 
 

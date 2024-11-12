@@ -69,9 +69,7 @@ if(WIN32)
 endif(WIN32)
 
 find_package(glfw3 REQUIRED)
-if(WIN32)
 find_package(Vulkan REQUIRED)
-endif(WIN32)
 
 if(LINUX)
     find_package(VulkanLoader REQUIRED CONFIG)
@@ -80,9 +78,7 @@ add_library(${PROJECT_NAME} ${ALL_SRC})
 
 target_include_directories(${PROJECT_NAME} PUBLIC ./)
 
-if(WIN32)
 target_link_libraries(${PROJECT_NAME} glfw Vulkan::Vulkan)
-endif(WIN32)
 
 if(LINUX)
 target_link_libraries(${PROJECT_NAME} glfw Vulkan::Loader)
