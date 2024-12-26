@@ -45,6 +45,8 @@ int main(int, char**){
     //! @note Setting up platform/renderer backends
     ImGui_ImplGlfw_InitForVulkan(window, true);
 
+    printf("ImGui_ImplGlfw_InitForVulkan(window, true) called!\n");
+
     ImGui_ImplVulkan_InitInfo init_info = {};
 
     ImGui_ImplVulkan_Init(&init_info);

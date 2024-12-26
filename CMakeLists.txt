@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.25)
+cmake_minimum_required(VERSION 3.27)
 
-project(imgui VERSION 1.0 LANGUAGES C CXX)
+project(imgui LANGUAGES CXX)
 
 set(
     ALL_SRC
@@ -14,7 +14,6 @@ set(
     backends/imgui_impl_glfw.h
     # backends/imgui_impl_glut.h
     backends/imgui_impl_vulkan.h
-    backends/imgui_impl_win32.h
 
 
     imgui.cpp
@@ -27,7 +26,6 @@ set(
     backends/imgui_impl_glfw.cpp
     # backends/imgui_impl_glut.cpp
     backends/imgui_impl_vulkan.cpp
-    # backends/imgui_impl_win32.cpp
 #     backends/imgui_impl_metal.h
 #     backends/imgui_impl_metal.mm
 # endif()
@@ -65,22 +63,32 @@ set(
 
 # Adding sources that are dependent on OS.
 if(WIN32)
-    list(APPEND ALL_SRC backends/imgui_impl_win32.cpp)
-endif(WIN32)
+    list(APPEND ALL_SRC backends/imgui_impl_win32.h backends/imgui_impl_win32.cpp)
+elseif(APPLE)
+    list(APPEND ALL_SRC backends/imgui_impl_metal.h backends/imgui_impl_metal.mm)
+elseif(UNIX AND NOT APPLE)
+    # Linux Support for ImGui
+endif()
 
-find_package(glfw3 REQUIRED)
-find_package(Vulkan REQUIRED)
-
-if(LINUX)
+if(UNIX AND NOT APPLE)
     find_package(VulkanLoader REQUIRED CONFIG)
-endif(LINUX)
+else()
+    find_package(glfw3 REQUIRED)
+    find_package(Vulkan REQUIRED)
+endif()
+
 add_library(${PROJECT_NAME} ${ALL_SRC})
 
 target_include_directories(${PROJECT_NAME} PUBLIC ./)
 
-target_link_libraries(${PROJECT_NAME} glfw Vulkan::Vulkan)
+# target_link_libraries(${PROJECT_NAME} glfw Vulkan::Vulkan)
 
-if(LINUX)
-target_link_libraries(${PROJECT_NAME} glfw Vulkan::Loader)
-endif(LINUX)
+if(WIN32)
+target_link_libraries(${PROJECT_NAME} glfw Vulkan::Vulkan vulkan-headers::vulkan-headers)
+elseif(UNIX AND NOT APPLE)
+target_link_libraries(${PROJECT_NAME} glfw Vulkan::Loader vulkan-headers::vulkan-headers)
+elseif(APPLE)
+target_link_libraries(${PROJECT_NAME} glfw Vulkan::Vulkan vulkan-headers::vulkan-headers)
+endif()
+
 install(TARGETS ${PROJECT_NAME})
