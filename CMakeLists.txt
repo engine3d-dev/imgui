@@ -70,10 +70,11 @@ elseif(UNIX AND NOT APPLE)
     # Linux Support for ImGui
 endif()
 
+find_package(glfw3 REQUIRED)
+
 if(UNIX AND NOT APPLE)
     find_package(VulkanLoader REQUIRED CONFIG)
 else()
-    find_package(glfw3 REQUIRED)
     find_package(Vulkan REQUIRED)
 endif()
 

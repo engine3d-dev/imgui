@@ -33,6 +33,7 @@ class ImguiDockingRecipe(ConanFile):
         copy(self, "*.cpp", self.recipe_folder, self.export_sources_folder)
         copy(self, "backend/*.h", self.recipe_folder, self.export_sources_folder)
         copy(self, "backends/*.cpp", self.recipe_folder, self.export_sources_folder)
+        copy(self, "backends/*.mm", self.recipe_folder, self.export_sources_folder)
 
     def config_options(self):
         if self.settings.os == "Windows":
