@@ -20,9 +20,12 @@ class ImguiDockingRecipe(ConanFile):
     exports_sources = ["CMakeLists.txt", "imconfig.h", "imgui_internal.h", "imgui.h", "imstb_rectpack.h", "imstb_textedit.h", "imstb_truetype.h", "backend/imgui_impl_opengl3.h", "backends/imgui_impl_glfw.h", "backends/imgui_impl_glut.h", "backends/imgui_impl_vulkan.h", "backends/imgui_impl_win32.h"]
     # exports_sources = "*.h", "*.cpp", "backend/*.h"
 
+    def build_requirements(self):
+        self.tool_requires("cmake/[^4.0.0]")
+        self.tool_requires("ninja/[^1.3.0]")
+        self.tool_requires("engine3d-cmake-utils/4.0")
+
     def requirements(self):
-        self.tool_requires("cmake/4.1.1")
-        self.tool_requires("ninja/1.13.1")
         self.requires("glfw/3.4")
         self.requires("opengl/system")
 
