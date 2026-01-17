@@ -84,12 +84,14 @@ target_include_directories(${PROJECT_NAME} PUBLIC ./)
 
 # target_link_libraries(${PROJECT_NAME} glfw Vulkan::Vulkan)
 
-if(WIN32)
-target_link_libraries(${PROJECT_NAME} glfw Vulkan::Vulkan vulkan-headers::vulkan-headers)
-elseif(UNIX AND NOT APPLE)
-target_link_libraries(${PROJECT_NAME} glfw Vulkan::Loader vulkan-headers::vulkan-headers)
-elseif(APPLE)
-target_link_libraries(${PROJECT_NAME} glfw Vulkan::Vulkan vulkan-headers::vulkan-headers)
-endif()
+# if(WIN32)
+# target_link_libraries(${PROJECT_NAME} glfw Vulkan::Vulkan)
+# elseif(UNIX AND NOT APPLE)
+# target_link_libraries(${PROJECT_NAME} glfw)
+# elseif(APPLE)
+# target_link_libraries(${PROJECT_NAME} glfw Vulkan::Vulkan)
+# endif()
+
+target_link_libraries(${PROJECT_NAME} glfw Vulkan::Vulkan)
 
 install(TARGETS ${PROJECT_NAME})

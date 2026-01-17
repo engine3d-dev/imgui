@@ -6,7 +6,7 @@ import os
 
 class ImguiDockingRecipe(ConanFile):
     name = "imguidocking"
-    version = "2.0"
+    version = "3.0"
     package_type = "library"
     license = "Apache-2.0"
     homepage = "https://github.com/engine3d-dev/imgui"
@@ -21,11 +21,10 @@ class ImguiDockingRecipe(ConanFile):
     # exports_sources = "*.h", "*.cpp", "backend/*.h"
 
     def requirements(self):
-        self.requires("make/4.4.1")
-        self.tool_requires("cmake/3.27.1")
-        self.requires("glfw/3.4", transitive_headers=True)
-        self.requires("opengl/system", transitive_headers=True)
-        self.requires("vulkan-loader/1.3.290.0")
+        self.tool_requires("cmake/4.1.1")
+        self.tool_requires("ninja/1.13.1")
+        self.requires("glfw/3.4")
+        self.requires("opengl/system")
 
     def export_sources(self):
         copy(self, "CMakeLists.txt", self.recipe_folder, self.export_sources_folder)
@@ -69,11 +68,6 @@ class ImguiDockingRecipe(ConanFile):
         copy(self, pattern="backends/*.h", src=os.path.join(self.source_folder, "backends"), dst=os.path.join(self.package_folder, "backends"))
         copy(self, pattern="imgui_impl_glfw.h", src=os.path.join(self.source_folder, "backends"), dst=os.path.join(self.package_folder, "backends"))
         copy(self, pattern="imgui_impl_vulkan.h", src=os.path.join(self.source_folder, "backends"), dst=os.path.join(self.package_folder, "backends"))
-        # copy(self, pattern="*.cpp", src=os.path.join(self.source_folder, "backends"), dst=os.path.join(self.package_folder, "imgui/backends"))
-        # copy(self, pattern="backends/imgui_impl_glfw.h", src=os.path.join(self.source_folder, "./backends/"), dst=os.path.join(self.package_folder, "imgui/backends"))
-        # copy(self, pattern="backends/imgui_impl_vulkan.h", src=os.path.join(self.source_folder, "./backends/"), dst=os.path.join(self.package_folder, "imgui/backends"))
-        # copy(self, pattern="backends/imgui_impl_glfw.cpp", src=os.path.join(self.source_folder, "./backends/"), dst=os.path.join(self.package_folder, "imgui/backends"))
-        # copy(self, pattern="backends/imgui_impl_vulkan.cpp", src=os.path.join(self.source_folder, "./backends/"), dst=os.path.join(self.package_folder, "imgui/backends"))
         copy(self, pattern="*.a", src=self.build_folder, dst=os.path.join(self.package_folder, "lib"), keep_path=False)
         copy(self, pattern="*.so", src=self.build_folder, dst=os.path.join(self.package_folder, "lib"), keep_path=False)
         copy(self, pattern="*.lib", src=self.build_folder, dst=os.path.join(self.package_folder, "lib"), keep_path=False)
