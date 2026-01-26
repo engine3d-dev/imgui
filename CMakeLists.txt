@@ -70,9 +70,6 @@ elseif(UNIX AND NOT APPLE)
     # Linux Support for ImGui
 endif()
 
-# find_package(glfw3 REQUIRED)
-# find_package
-
 add_library(${PROJECT_NAME} ${ALL_SRC})
 
 target_include_directories(${PROJECT_NAME} PUBLIC ./)
@@ -86,17 +83,5 @@ set_packages(
     glfw
     Vulkan::Vulkan
 )
-
-# target_link_libraries(${PROJECT_NAME} glfw Vulkan::Vulkan)
-
-# if(WIN32)
-# target_link_libraries(${PROJECT_NAME} glfw Vulkan::Vulkan)
-# elseif(UNIX AND NOT APPLE)
-# target_link_libraries(${PROJECT_NAME} glfw)
-# elseif(APPLE)
-# target_link_libraries(${PROJECT_NAME} glfw Vulkan::Vulkan)
-# endif()
-
-# target_link_libraries(${PROJECT_NAME} glfw Vulkan::Vulkan)
 
 install(TARGETS ${PROJECT_NAME})

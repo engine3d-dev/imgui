@@ -18,7 +18,7 @@ class ImguiDockingRecipe(ConanFile):
 
     # Sources are located in the same place as this recipe, copy them to the recipe
     exports_sources = ["CMakeLists.txt", "imconfig.h", "imgui_internal.h", "imgui.h", "imstb_rectpack.h", "imstb_textedit.h", "imstb_truetype.h", "backend/imgui_impl_opengl3.h", "backends/imgui_impl_glfw.h", "backends/imgui_impl_glut.h", "backends/imgui_impl_vulkan.h", "backends/imgui_impl_win32.h"]
-    # exports_sources = "*.h", "*.cpp", "backend/*.h"
+    export_sources = ["CMakeLists.txt", "*.h", "*.mm"]
 
     def build_requirements(self):
         self.tool_requires("cmake/[^4.0.0]")
